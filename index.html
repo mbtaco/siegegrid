@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiegeGrid</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container panels-open">
+        <button class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="side-panel left-panel">
+            <h2>Ownership</h2>
+        </div>
+        <div class="side-panel right-panel">
+            <h2>Randomizer</h2>
+        </div>
+        <div class="main-content">
+            <h1>Siege Operator Tool</h1>
+            <div class="role-selector">
+                <button class="role-btn active" data-role="all">All</button>
+                <button class="role-btn" data-role="Attacker">Attack</button>
+                <button class="role-btn" data-role="Defender">Defense</button>
+            </div>
+            <div id="grid" class="grid"></div>
+        </div>
+        
+        <div class="version">v2.0</div>
+    </div>
+    
+    <!-- Operator Info Modal -->
+    <div id="operatorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <img id="modalIcon" class="modal-operator-icon" src="" alt="">
+                <div class="modal-operator-info">
+                    <h2 id="modalName"></h2>
+                    <div id="modalRole" class="modal-role"></div>
+                    <div id="modalOrg" class="modal-org"></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Bio</h3>
+                    <p><strong>Real Name:</strong> <span id="modalRealName"></span></p>
+                    <p><strong>Birthplace:</strong> <span id="modalBirthplace"></span></p>
+                </div>
+                <div class="modal-section">
+                    <h3>Details</h3>
+                    <p><strong>Season:</strong> <span id="modalSeason"></span></p>
+                    <p><strong>Height:</strong> <span id="modalHeight"></span> cm</p>
+                    <p><strong>Weight:</strong> <span id="modalWeight"></span> kg</p>
+                    <p><strong>Country:</strong> <span id="modalCountry"></span></p>
+                </div>
+                <div class="modal-section">
+                    <h3>Ratings</h3>
+                    <div class="ratings-container">
+                        <div class="rating-item">
+                            <span>Health:</span>
+                            <div class="rating-bars">
+                                <div class="rating-bar" data-rating="health"></div>
+                                <div class="rating-bar" data-rating="health"></div>
+                                <div class="rating-bar" data-rating="health"></div>
+                            </div>
+                        </div>
+                        <div class="rating-item">
+                            <span>Speed:</span>
+                            <div class="rating-bars">
+                                <div class="rating-bar" data-rating="speed"></div>
+                                <div class="rating-bar" data-rating="speed"></div>
+                                <div class="rating-bar" data-rating="speed"></div>
+                            </div>
+                        </div>
+                        <div class="rating-item">
+                            <span>Difficulty:</span>
+                            <div class="rating-bars">
+                                <div class="rating-bar" data-rating="difficulty"></div>
+                                <div class="rating-bar" data-rating="difficulty"></div>
+                                <div class="rating-bar" data-rating="difficulty"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <h3>Price</h3>
+                    <p><strong>Renown:</strong> <span id="modalRenown"></span></p>
+                    <p><strong>R6 Credits:</strong> <span id="modalCredits"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

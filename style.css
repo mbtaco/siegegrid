@@ -1,0 +1,458 @@
+:root {
+    --grid-gap: 12px;
+    --grid-size: 125px;
+    --icon-size: 80px;
+    --panel-width: 450px;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #222222;
+    border-radius: 50px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-height: calc(100vh - 40px);
+    overflow: visible;
+    position: relative;
+}
+
+.menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+}
+
+.menu-btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.menu-btn.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-btn.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+.side-panel {
+    position: absolute;
+    top: 50%;
+    width: var(--panel-width);
+    height: 90%;
+    background-color: #222222;
+    transition: all 0.5s ease;
+    z-index: -1;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.side-panel h2 {
+    color: #cccccc;
+    font-size: 2em;
+    margin: 0 0 20px 0;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.left-panel {
+    left: 0;
+    transform: translate(-100%, -50%);
+    border-radius: 50px 0 0 50px;
+}
+
+.right-panel {
+    right: 0;
+    transform: translate(100%, -50%);
+    border-radius: 0 50px 50px 0;
+}
+
+.container.panels-open .left-panel {
+    transform: translate(-20px, -50%);
+}
+
+.container.panels-open .right-panel {
+    transform: translate(20px, -50%);
+}
+
+.main-content {
+    position: relative;
+    z-index: 80;
+}
+
+.container.panels-open .main-content {
+    transform: none;
+}
+
+h1 {
+    text-align: center;
+    margin: 0 0 20px 0;
+    color: #ffffff;
+    font-size: 2.8em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.role-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.role-btn {
+    background-color: #2a2a2a;
+    border: 2px solid #383838;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.role-btn:hover {
+    background-color: #333333;
+    border-color: #4a4a4a;
+}
+
+.role-btn.active {
+    background-color: #4a4a4a;
+    border-color: #666666;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap);
+    margin-top: 0;
+}
+
+.grid-row {
+    display: flex;
+    gap: var(--grid-gap);
+}
+
+.grid-cell {
+    width: var(--grid-size);
+    height: var(--grid-size);
+    border-radius: 15px;
+    background-color: #2a2a2a;
+    border: 3px solid #383838;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.grid-cell:empty {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(56, 56, 56, 0.3);
+    box-shadow: none;
+}
+
+.grid-cell:hover {
+    transform: translateY(-3px) scale(1.05);
+    background-color: #333333;
+    border-color: #4a4a4a;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.grid-cell:empty:hover {
+    transform: none;
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(56, 56, 56, 0.3);
+    box-shadow: none;
+}
+
+.grid-cell.fade-out {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.grid-cell.fly-in {
+    animation: flyIn 0.5s ease forwards;
+}
+
+@keyframes flyIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.operator-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    object-fit: contain;
+    margin-bottom: 4px;
+}
+
+.operator-name {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2px;
+    color: #ffffff;
+}
+
+.operator-role {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    color: #888888;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.modal.show {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #222222;
+    margin: 5% auto;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transform: scale(0.7) translateY(-50px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+}
+
+.modal.show .modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.modal.closing {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    opacity: 0;
+}
+
+.modal.closing .modal-content {
+    transform: scale(0.7) translateY(-50px);
+    opacity: 0;
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    border-bottom: 2px solid #333333;
+    gap: 20px;
+}
+
+.modal-operator-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.modal-operator-info h2 {
+    margin: 0 0 10px 0;
+    font-size: 2.2em;
+    color: #ffffff;
+}
+
+.modal-role {
+    font-size: 1.1em;
+    color: #cccccc;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.modal-org {
+    font-size: 0.9em;
+    color: #888888;
+    text-transform: uppercase;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-section {
+    margin-bottom: 25px;
+}
+
+.modal-section h3 {
+    color: #ffffff;
+    font-size: 1.3em;
+    margin: 0 0 15px 0;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 8px;
+}
+
+.modal-section p {
+    margin: 8px 0;
+    color: #cccccc;
+    font-size: 1em;
+}
+
+.modal-section strong {
+    color: #ffffff;
+}
+
+.ratings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.rating-item span {
+    color: #ffffff;
+    font-weight: bold;
+    min-width: 80px;
+}
+
+.rating-bars {
+    display: flex;
+    gap: 10px;
+}
+
+.rating-bar {
+    width: 20px;
+    height: 20px;
+    background-color: #333333;
+    border-radius: 50%;
+    border: 1px solid #555555;
+    transition: background-color 0.3s ease;
+}
+
+.rating-bar.active {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+/* Responsive design for modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 2% auto;
+        max-height: 95vh;
+    }
+    
+    .modal-header {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .rating-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .rating-item span {
+        min-width: auto;
+    }
+}   
+
+.version {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    font-weight: bold;
+    color: #797979;
+    font-size: 0.8em;
+    z-index: 10;
+    user-select: none;
+    pointer-events: none;
+}   
