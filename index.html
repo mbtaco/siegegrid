@@ -9,6 +9,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Info Button -->
+    <button class="info-btn" aria-label="Show app information" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+    </button>
+
+    <!-- Info Panel -->
+    <aside class="info-panel" aria-label="Application information panel">
+        <div class="info-content">
+            <h2>SiegeGrid <span class="version-text">v2.2</span></h2>
+            <div class="info-section">
+                <h3>Developer</h3>
+                <p>Developed by taco (and Cursor with Claude 4 Sonnet)</p>
+            </div>
+            <div class="info-section">
+                <h3>Links</h3>
+                <div class="info-links">
+                    <a href="https://github.com/mbtaco/siegegrid" target="_blank">SiegeGrid GitHub Repository</a>
+                    <a href="https://github.com/mbtaco" target="_blank">mbtaco on GitHub</a>
+                    <a href="https://discord.com/users/787981828333109278" target="_blank">taco_4 on Discord</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+
     <main class="container panels-open panel-base rounded-container">
         <button class="menu-btn" aria-label="Toggle side panels" aria-expanded="true">
             <span></span>
@@ -30,8 +56,6 @@
             </div>
             <div id="grid" class="grid" role="grid" aria-label="Operator grid"></div>
         </section>
-        
-        <div class="version" aria-hidden="true">v2.2</div>
     </main>
     
     <!-- Operator Info Modal -->

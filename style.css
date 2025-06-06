@@ -354,7 +354,9 @@ h1 {
 }
 
 .close {
-    color: #aaa;
+    color: #5c5c5c;
+    background: none;
+    border: none;
     position: absolute;
     top: 0.78vw;
     right: 1.3vw;
@@ -365,8 +367,7 @@ h1 {
     transition: color 0.3s ease;
 }
 
-.close:hover,
-.close:focus {
+.close:hover {
     color: var(--text-primary);
 }
 
@@ -524,73 +525,156 @@ h1 {
     }
 }
 
-.version {
-    position: absolute;
-    bottom: 1.3vw;
-    right: 1.3vw;
-    font-weight: bold;
-    color: var(--text-muted);
-    font-size: 0.8em;
-    z-index: 10;
-    user-select: none;
-    pointer-events: none;
+/* Info Button and Panel */
+.info-btn {
+    position: fixed;
+    top: 1.04vw;
+    right: 1.04vw;
+    width: 2.6vw;
+    height: 2.6vw;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
 }
 
-/* Focus styles for accessibility */
-button:focus-visible,
-[tabindex]:focus-visible {
+.info-btn:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.info-btn:focus {
+    outline: none;
+}
+
+.info-btn:focus-visible {
     outline: var(--focus-outline);
     outline-offset: 0.16vw;
 }
 
-.grid-cell:focus-visible {
-    outline: var(--focus-outline);
-    outline-offset: 0.1vw;
-    transform: translateY(-0.16vw) scale(1.05);
+.info-btn svg {
+    width: 1.3vw;
+    height: 1.3vw;
 }
 
-/* Error message styles */
-.error-message {
-    grid-column: 1 / -1;
+.info-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20.83vw;
+    height: 100vh;
+    background-color: var(--bg-primary);
+    border-left: 0.1vw solid var(--border-primary);
+    box-shadow: -0.52vw 0 1.56vw rgba(0, 0, 0, 0.3);
+    z-index: 150;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+}
+
+.info-panel.open {
+    transform: translateX(0);
+}
+
+.info-content {
+    padding: 1.56vw;
+}
+
+.info-content h2 {
+    margin: 0 0 1.56vw 0;
+    color: var(--text-primary);
+    font-size: 2em;
     text-align: center;
-    color: var(--text-secondary);
+    border-bottom: 0.1vw solid var(--border-primary);
+    padding-bottom: 0.78vw;
+}
+
+.version-text {
+    color: var(--text-muted);
+    font-size: 0.6em;
+    font-weight: normal;
+}
+
+.info-section {
+    margin-bottom: 1.56vw;
+}
+
+.info-section h3 {
+    color: var(--text-primary);
     font-size: 1.2em;
-    padding: 2vw;
-    background-color: var(--bg-secondary);
-    border-radius: 1vw;
+    margin: 0 0 0.52vw 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-section p {
+    color: var(--text-secondary);
+    font-size: 1em;
+    margin: 0.26vw 0;
+    line-height: 1.4;
+}
+
+.info-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.52vw;
+}
+
+.info-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.52vw 0.78vw;
     border: 0.1vw solid var(--border-primary);
+    border-radius: 0.52vw;
+    transition: var(--transition-fast);
+    text-align: center;
 }
 
-/* Loading state utility */
-.loading {
-    opacity: 0.5;
-    pointer-events: none;
+.info-links a:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    border-color: var(--border-secondary);
 }
 
-/* Improved responsive design */
-@media (max-width: 480px) {
-    :root {
-        --font-size-base: 1.2vw;
-        --grid-gap: 1vw;
-        --grid-size: 8vw;
-        --icon-size: 5vw;
-        --container-padding: 2vw;
-    }
-    
-    .container.panels-open .left-panel,
-    .container.panels-open .right-panel {
-        transform: translateY(-50%);
-        position: relative;
-        width: 100%;
-        height: auto;
-        margin-bottom: 1vw;
-    }
-    
-    .grid {
-        justify-content: center;
-    }
-    
-    .grid-row {
-        justify-content: center;
-    }
+.info-links a:focus {
+    outline: var(--focus-outline);
+    outline-offset: 0.16vw;
 }
+
+/* Responsive adjustments for info panel */
+@media (max-width: 768px) {
+    .info-btn {
+        width: 4vw;
+        height: 4vw;
+        top: 2vw;
+        right: 2vw;
+    }
+    
+    .info-btn svg {
+        width: 2vw;
+        height: 2vw;
+    }
+    
+    .info-panel {
+        width: 85vw;
+    }
+    
+    .info-content {
+        padding: 4vw;
+    }
+    
+    .info-content h2 {
+        font-size: 1.5em;
+        margin-bottom: 3vw;
+        padding-bottom: 1.5vw;
+    }
+    
+    .info-section {
+        margin-bottom: 3vw;
+    }
+}   

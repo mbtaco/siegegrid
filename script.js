@@ -18,7 +18,9 @@ const elements = {
     closeBtn: document.querySelector('.close'),
     menuBtn: document.querySelector('.menu-btn'),
     container: document.querySelector('.container'),
-    roleButtons: document.querySelectorAll('.role-btn')
+    roleButtons: document.querySelectorAll('.role-btn'),
+    infoBtn: document.querySelector('.info-btn'),
+    infoPanel: document.querySelector('.info-panel')
 };
 
 // Utility functions
@@ -33,8 +35,6 @@ const debounce = (func, wait) => {
         timeout = setTimeout(later, wait);
     };
 };
-
-
 
 const trapFocus = (element) => {
     const focusableElements = element.querySelectorAll(
@@ -65,6 +65,12 @@ const toggleMenu = () => {
     const isOpen = elements.container.classList.toggle('panels-open');
     elements.menuBtn.classList.toggle('active');
     elements.menuBtn.setAttribute('aria-expanded', isOpen);
+};
+
+// Info panel functionality
+const toggleInfoPanel = () => {
+    const isOpen = elements.infoPanel.classList.toggle('open');
+    elements.infoBtn.setAttribute('aria-expanded', isOpen);
 };
 
 // Modal functionality
@@ -309,6 +315,9 @@ const initEventListeners = () => {
     // Menu button
     elements.menuBtn.addEventListener('click', toggleMenu);
     
+    // Info panel
+    elements.infoBtn.addEventListener('click', toggleInfoPanel);
+    
     // Modal event listeners
     elements.closeBtn.addEventListener('click', closeModal);
     
@@ -321,8 +330,12 @@ const initEventListeners = () => {
     
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && elements.modal.style.display === 'block') {
-            closeModal();
+        if (e.key === 'Escape') {
+            if (elements.modal.style.display === 'block') {
+                closeModal();
+            } else if (elements.infoPanel.classList.contains('open')) {
+                toggleInfoPanel();
+            }
         }
     });
     
