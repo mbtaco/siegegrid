@@ -93,20 +93,6 @@ php -S localhost:8000
 - **Enter/Space**: Activate buttons and open operator details
 - **Escape**: Close modals and panels
 
-## File Structure
-
-```
-siegegrid/
-├── index.html          # Main HTML file
-├── style.css           # All styling and responsive design
-├── script.js           # Core functionality and interactions
-├── operator-data.json  # Operator information database
-├── assets/             # Operator icons and images
-│   ├── favicon.png
-│   └── *.svg          # Operator icons
-└── README.md          # This file
-```
-
 ## Browser Support
 
 - Chrome 60+

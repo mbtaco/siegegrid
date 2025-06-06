@@ -82,6 +82,12 @@ body {
     max-height: calc(100vh - 2.08vw);
     overflow: visible;
     position: relative;
+    transition: var(--transition-medium);
+}
+
+/* Shift main content when info panel is open */
+.info-panel.open ~ .container {
+    transform: translateX(-10.4vw);
 }
 
 .menu-btn {
@@ -676,5 +682,10 @@ h1 {
     
     .info-section {
         margin-bottom: 3vw;
+    }
+    
+    /* Adjust container shift for mobile */
+    .info-panel.open ~ .container {
+        transform: translateX(-42.5vw);
     }
 }   
