@@ -4,94 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiegeGrid</title>
+    <meta name="description" content="Rainbow Six Siege operator grid and randomizer tool">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container panels-open">
-        <button class="menu-btn">
+    <main class="container panels-open panel-base rounded-container">
+        <button class="menu-btn" aria-label="Toggle side panels" aria-expanded="true">
             <span></span>
             <span></span>
             <span></span>
         </button>
-        <div class="side-panel left-panel">
-            <h2>Ownership</h2>
-        </div>
-        <div class="side-panel right-panel">
-            <h2>Randomizer</h2>
-        </div>
-        <div class="main-content">
-            <h1>Siege Operator Tool</h1>
-            <div class="role-selector">
-                <button class="role-btn active" data-role="all">All</button>
-                <button class="role-btn" data-role="Attacker">Attack</button>
-                <button class="role-btn" data-role="Defender">Defense</button>
+        <aside class="side-panel left-panel panel-base" aria-label="Operator ownership panel">
+            <h2 class="text-secondary text-shadow">Ownership</h2>
+        </aside>
+        <aside class="side-panel right-panel panel-base" aria-label="Operator randomizer panel">
+            <h2 class="text-secondary text-shadow">Randomizer</h2>
+        </aside>
+        <section class="main-content">
+            <h1 class="text-primary text-shadow">Siege Operator Tool</h1>
+            <div class="role-selector" role="group" aria-label="Filter operators by role">
+                <button class="role-btn active rounded-button transition-fast" data-role="all" aria-pressed="true">All</button>
+                <button class="role-btn rounded-button transition-fast" data-role="Attacker" aria-pressed="false">Attack</button>
+                <button class="role-btn rounded-button transition-fast" data-role="Defender" aria-pressed="false">Defense</button>
             </div>
-            <div id="grid" class="grid"></div>
-        </div>
+            <div id="grid" class="grid" role="grid" aria-label="Operator grid"></div>
+        </section>
         
-        <div class="version">v2.1</div>
-    </div>
+        <div class="version" aria-hidden="true">v2.2</div>
+    </main>
     
     <!-- Operator Info Modal -->
-    <div id="operatorModal" class="modal">
+    <div id="operatorModal" class="modal" role="dialog" aria-labelledby="modalName" aria-hidden="true">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-header">
-                <img id="modalIcon" class="modal-operator-icon" src="" alt="">
+            <button class="close" aria-label="Close modal">&times;</button>
+            <header class="modal-header">
+                <img id="modalIcon" class="modal-operator-icon" src="" alt="" role="img">
                 <div class="modal-operator-info">
                     <h2 id="modalName"></h2>
                     <div id="modalRole" class="modal-role"></div>
                     <div id="modalOrg" class="modal-org"></div>
                 </div>
-            </div>
+            </header>
             <div class="modal-body">
-                <div class="modal-section">
+                <section class="modal-section">
                     <h3>Bio</h3>
                     <p><strong>Real Name:</strong> <span id="modalRealName"></span></p>
                     <p><strong>Birthplace:</strong> <span id="modalBirthplace"></span></p>
-                </div>
-                <div class="modal-section">
+                </section>
+                <section class="modal-section">
                     <h3>Details</h3>
                     <p><strong>Season:</strong> <span id="modalSeason"></span></p>
                     <p><strong>Height:</strong> <span id="modalHeight"></span> cm</p>
                     <p><strong>Weight:</strong> <span id="modalWeight"></span> kg</p>
                     <p><strong>Country:</strong> <span id="modalCountry"></span></p>
-                </div>
-                <div class="modal-section">
+                </section>
+                <section class="modal-section">
                     <h3>Ratings</h3>
                     <div class="ratings-container">
                         <div class="rating-item">
                             <span>Health:</span>
-                            <div class="rating-bars">
-                                <div class="rating-bar" data-rating="health"></div>
-                                <div class="rating-bar" data-rating="health"></div>
-                                <div class="rating-bar" data-rating="health"></div>
+                            <div class="rating-bars" role="img" aria-label="Health rating">
+                                <div class="rating-bar" data-rating="health" aria-hidden="true"></div>
+                                <div class="rating-bar" data-rating="health" aria-hidden="true"></div>
+                                <div class="rating-bar" data-rating="health" aria-hidden="true"></div>
                             </div>
                         </div>
                         <div class="rating-item">
                             <span>Speed:</span>
-                            <div class="rating-bars">
-                                <div class="rating-bar" data-rating="speed"></div>
-                                <div class="rating-bar" data-rating="speed"></div>
-                                <div class="rating-bar" data-rating="speed"></div>
+                            <div class="rating-bars" role="img" aria-label="Speed rating">
+                                <div class="rating-bar" data-rating="speed" aria-hidden="true"></div>
+                                <div class="rating-bar" data-rating="speed" aria-hidden="true"></div>
+                                <div class="rating-bar" data-rating="speed" aria-hidden="true"></div>
                             </div>
                         </div>
                         <div class="rating-item">
                             <span>Difficulty:</span>
-                            <div class="rating-bars">
-                                <div class="rating-bar" data-rating="difficulty"></div>
-                                <div class="rating-bar" data-rating="difficulty"></div>
-                                <div class="rating-bar" data-rating="difficulty"></div>
+                            <div class="rating-bars" role="img" aria-label="Difficulty rating">
+                                <div class="rating-bar" data-rating="difficulty" aria-hidden="true"></div>
+                                <div class="rating-bar" data-rating="difficulty" aria-hidden="true"></div>
+                                <div class="rating-bar" data-rating="difficulty" aria-hidden="true"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-section">
+                </section>
+                <section class="modal-section">
                     <h3>Price</h3>
                     <p><strong>Renown:</strong> <span id="modalRenown"></span></p>
                     <p><strong>R6 Credits:</strong> <span id="modalCredits"></span></p>
-                </div>
+                </section>
             </div>
         </div>
     </div>
