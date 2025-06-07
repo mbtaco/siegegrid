@@ -8,7 +8,8 @@ const CONFIG = {
 const state = {
     currentOperators: [],
     isAnimating: false,
-    operatorData: {}
+    operatorData: {},
+    ownedOperators: new Set() // Set of operator IDs that the user owns
 };
 
 // DOM Elements - cached for performance
@@ -60,6 +61,43 @@ const trapFocus = (element) => {
             }
         }
     });
+};
+
+// LocalStorage functionality for owned operators
+const STORAGE_KEY = 'siegegrid_owned_operators';
+
+const saveOwnedOperators = () => {
+    try {
+        const ownedArray = Array.from(state.ownedOperators);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(ownedArray));
+    } catch (error) {
+        console.error('Error saving owned operators to localStorage:', error);
+    }
+};
+
+const loadOwnedOperators = () => {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            const ownedArray = JSON.parse(saved);
+            state.ownedOperators = new Set(ownedArray);
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error loading owned operators from localStorage:', error);
+        return false;
+    }
+};
+
+const initializeOwnedOperators = () => {
+    const hasStoredData = loadOwnedOperators();
+    
+    // If no stored data exists, initialize with all operators as owned
+    if (!hasStoredData && Object.keys(state.operatorData).length > 0) {
+        state.ownedOperators = new Set(Object.keys(state.operatorData));
+        saveOwnedOperators();
+    }
 };
 
 // Menu functionality
@@ -234,7 +272,28 @@ const createGrid = (operators) => {
                     
                     // Add click and keyboard handlers
                     const openOperatorModal = () => openModal(operator);
+                    const toggleOperatorVisibility = (e) => {
+                        e.preventDefault(); // Prevent context menu
+                        
+                        // Toggle ownership status
+                        if (state.ownedOperators.has(operator.id)) {
+                            state.ownedOperators.delete(operator.id);
+                            cell.classList.add('hidden');
+                            cell.setAttribute('aria-label', `${operator.name} (hidden), ${operator.role}`);
+                            cell.setAttribute('tabindex', '-1');
+                        } else {
+                            state.ownedOperators.add(operator.id);
+                            cell.classList.remove('hidden');
+                            cell.setAttribute('aria-label', `${operator.name}, ${operator.role}`);
+                            cell.setAttribute('tabindex', '0');
+                        }
+                        
+                        // Save to localStorage
+                        saveOwnedOperators();
+                    };
+                    
                     cell.addEventListener('click', openOperatorModal);
+                    cell.addEventListener('contextmenu', toggleOperatorVisibility);
                     cell.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
@@ -242,8 +301,15 @@ const createGrid = (operators) => {
                         }
                     });
                     
-                    // Accessibility
-                    cell.setAttribute('aria-label', `${operator.name}, ${operator.role}`);
+                    // Set initial visibility based on ownership status
+                    if (!state.ownedOperators.has(operator.id)) {
+                        cell.classList.add('hidden');
+                        cell.setAttribute('aria-label', `${operator.name} (hidden), ${operator.role}`);
+                        cell.setAttribute('tabindex', '-1');
+                    } else {
+                        cell.setAttribute('aria-label', `${operator.name}, ${operator.role}`);
+                        cell.setAttribute('tabindex', '0');
+                    }
                     
                     operatorIndex++;
                 }
@@ -402,6 +468,9 @@ const init = async () => {
         // Store operator data globally
         state.operatorData = data;
         state.currentOperators = Object.values(data);
+        
+        // Initialize owned operators from localStorage
+        initializeOwnedOperators();
         
         // Create initial grid
         createGrid(state.currentOperators);

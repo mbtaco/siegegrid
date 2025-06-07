@@ -239,8 +239,9 @@ h1 {
     transform: scale(1);
 }
 
-.grid-cell:empty {
-    background-color: rgba(0, 0, 0, 0);
+.grid-cell:empty,
+.grid-cell.hidden {
+    background: none;
     border-color: rgba(56, 56, 56, 0.3);
     box-shadow: none;
 }
@@ -253,10 +254,11 @@ h1 {
     cursor: pointer;
 }
 
-.grid-cell:empty:hover {
+.grid-cell:empty:hover,
+.grid-cell.hidden:hover {
     transform: none;
     cursor: default;
-    background-color: rgba(0, 0, 0, 0);
+    background: none;
     border-color: rgba(56, 56, 56, 0.3);
     box-shadow: none;
 }
