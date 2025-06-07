@@ -60,6 +60,10 @@ A modern, responsive Rainbow Six Siege operator grid and randomizer tool built w
 
 ### Installation
 
+[This app is hosted on Vercel](https://siegegrid.vercel.app)
+
+- or -
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/mbtaco/siegegrid.git
