@@ -86,10 +86,11 @@ body {
 }
 
 /* Shift main content when info panel is open */
+/*
 .info-panel.open ~ .container {
     transform: translateX(-10.4vw);
 }
-
+*/
 .menu-btn {
     position: absolute;
     top: 1.04vw;
