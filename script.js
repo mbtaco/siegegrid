@@ -20,7 +20,9 @@ const elements = {
     container: document.querySelector('.container'),
     roleButtons: document.querySelectorAll('.role-btn'),
     infoBtn: document.querySelector('.info-btn'),
-    infoPanel: document.querySelector('.info-panel')
+    infoPanel: document.querySelector('.info-panel'),
+    mobileWarningModal: document.getElementById('mobileWarningModal'),
+    mobileWarningClose: document.getElementById('mobileWarningClose')
 };
 
 // Utility functions
@@ -71,6 +73,34 @@ const toggleMenu = () => {
 const toggleInfoPanel = () => {
     const isOpen = elements.infoPanel.classList.toggle('open');
     elements.infoBtn.setAttribute('aria-expanded', isOpen);
+};
+
+// Mobile detection and warning functionality
+const isMobileDevice = () => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobileUserAgent = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isSmallScreen = window.innerWidth <= 768 || window.innerHeight <= 500;
+    
+    return isMobileUserAgent || (isTouchDevice && isSmallScreen);
+};
+
+const showMobileWarning = () => {
+    elements.mobileWarningModal.classList.add('show');
+    elements.mobileWarningModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus on close button for accessibility
+    elements.mobileWarningClose.focus();
+    
+    // Trap focus within modal
+    trapFocus(elements.mobileWarningModal);
+};
+
+const closeMobileWarning = () => {
+    elements.mobileWarningModal.classList.remove('show');
+    elements.mobileWarningModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'auto';
 };
 
 // Modal functionality
@@ -321,10 +351,20 @@ const initEventListeners = () => {
     // Modal event listeners
     elements.closeBtn.addEventListener('click', closeModal);
     
+    // Mobile warning modal
+    elements.mobileWarningClose.addEventListener('click', closeMobileWarning);
+    
     // Click outside modal to close
     elements.modal.addEventListener('click', (e) => {
         if (e.target === elements.modal) {
             closeModal();
+        }
+    });
+    
+    // Click outside mobile warning to close
+    elements.mobileWarningModal.addEventListener('click', (e) => {
+        if (e.target === elements.mobileWarningModal) {
+            closeMobileWarning();
         }
     });
     
@@ -333,6 +373,8 @@ const initEventListeners = () => {
         if (e.key === 'Escape') {
             if (elements.modal.style.display === 'block') {
                 closeModal();
+            } else if (elements.mobileWarningModal.classList.contains('show')) {
+                closeMobileWarning();
             } else if (elements.infoPanel.classList.contains('open')) {
                 toggleInfoPanel();
             }
@@ -366,6 +408,14 @@ const init = async () => {
         
         // Initialize event listeners
         initEventListeners();
+        
+        // Check for mobile device and show warning if needed
+        if (isMobileDevice()) {
+            // Small delay to ensure everything is loaded
+            setTimeout(() => {
+                showMobileWarning();
+            }, 500);
+        }
         
         console.log('SiegeGrid initialized successfully');
     } catch (error) {
