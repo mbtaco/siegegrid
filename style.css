@@ -159,11 +159,11 @@ body {
 }
 
 .container.panels-open .left-panel {
-    transform: translate(-1.04vw, -50%);
+    transform: translate(0%, -50%);
 }
 
 .container.panels-open .right-panel {
-    transform: translate(1.04vw, -50%);
+    transform: translate(0%, -50%);
 }
 
 .main-content {
@@ -207,6 +207,14 @@ h1 {
 .role-btn.active {
     background-color: var(--border-secondary);
     border-color: #666666;
+}
+
+/* Ownership Controls */
+.ownership-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.52vw;
+    margin-top: 1.04vw;
 }
 
 .grid {
