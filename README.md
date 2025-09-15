@@ -1,4 +1,4 @@
-# SiegeGrid v2.2
+# SiegeGrid v2.2 (WIP)
 
 A modern, responsive Rainbow Six Siege operator grid and randomizer tool built with vanilla JavaScript, HTML, and CSS.
 
